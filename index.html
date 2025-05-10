@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="left">
+            <div class="list" draggable="true"><img src="drag_drop_icon.png">List Item 1</div>
+            <div class="list" draggable="true"><img src="drag_drop_icon.png">List Item 2</div>
+            <div class="list" draggable="true"><img src="drag_drop_icon.png">List Item 3</div>
+            <div class="list" draggable="true"><img src="drag_drop_icon.png">List Item 4</div>
+        </div>
+        <div id="right"></div>
+    </div>
+    <script>
+        let lists = document.getElementsByClassName("list");
+        let rightBox = document.getElementById("right");
+        let leftBox = document.getElementById("left");
+
+        // Add event listeners to each list item
+        for(list of lists){
+            list.addEventListener("dragstart", function(e){ // Dragging starts
+                let selected = e.target;
+
+                rightBox.addEventListener("dragover", function(e){ // Allow dropping
+                    e.preventDefault(); // Prevent default to allow drop
+                });
+                rightBox.addEventListener("drop", function(e){ // Dropping
+                    rightBox.appendChild(selected); // Append the selected item to the right box
+                    selected = null; // Clear the selected item
+                });
+                leftBox.addEventListener("dragover", function(e){ // Allow dropping
+                    e.preventDefault(); // Prevent default to allow drop
+                });
+                leftBox.addEventListener("drop", function(e){ // Dropping
+                    leftBox.appendChild(selected); // Append the selected item to the left box
+                    selected = null; // Clear the selected item
+                });
+            })
+        }
+    </script>
+</body>
+</html>
